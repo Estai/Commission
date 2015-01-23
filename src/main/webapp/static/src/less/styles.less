@@ -1,0 +1,241 @@
+@import "bootstrap/bootstrap.less";
+@import "variables.less";
+
+p {
+  margin: 20px 0;
+}
+
+.form-control {
+  box-shadow: none;
+}
+
+.btn {
+  font-family: @brand-font;
+}
+
+body {
+  border-top: 0px solid #7e7e7e;
+  background: url(../../www/image/bg.jpg) no-repeat center bottom;
+  background-attachment: fixed;
+
+  .wrapper {
+    padding: 0 0 50px 0;
+  }
+
+  header {
+    padding: 30px 0;
+
+  }
+
+  .eldiv {
+    margin-left: 500px;
+  }
+  .floatdiv {
+    float: left;
+    margin-right: 20px;
+    width: 65%;
+  }
+  .row1 {
+    width: 940px;
+    max-width: 100%;
+    min-width: 768px;
+    margin: 0 auto;
+  }
+  header a {
+    color: #011B6A;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: arial, tahoma, trebuchet ms, verdana;
+
+  }
+
+  .form-search {
+    width: 200px;
+  }
+  .input-group {
+    top: 5px;
+  }
+  .mainer {
+    background-color: #FFFFFF;
+  }
+  .navbar a {
+    text-transform: uppercase;
+
+  }
+  .navbar-default {
+    background: #011B6A url(../../www/image/menu.png);
+    margin-top: 5%;
+  }
+  .verav {
+    margin-top: 10px;
+  }
+  .rows {
+    width: 100%;
+    overflow: hidden;
+    padding: 10px 0;
+  }
+  .row label {
+    float: left;
+    width: 20%;
+    cursor: pointer;
+  }
+  .hint {
+    color: #717783;
+    font-size: 11px;
+    line-height: 15px;
+    padding: 0 10px 20px 165px;
+  }
+  span.required {
+    color: #CA4026;
+    font-weight: bold;
+  }
+  footer {
+    background: #011B6A url(../../www/image/menu.png);
+    color: #dbdbdb;
+    font-size: 11px;
+
+    .container {
+      height: 110px;
+      padding: 10px 0;
+      h3 {
+        border-bottom: 1px solid #919191;
+        color: #ffffff;
+        font-size: 14px;
+        line-height: 21px;
+        font-family: @brand-font;
+        margin: 0 0 10px;
+        text-transform: uppercase;
+      }
+      .spon {
+        margin-right: 20px;
+      }
+    }
+
+  }
+  .row h3 {
+    border-bottom: 1px solid #919191;
+    color: #011B6A;
+    font-size: 14px;
+    line-height: 21px;
+    font-family: @brand-font;
+    margin: 10px 0 10px;
+    text-transform: uppercase;
+  }
+
+  .profile {
+    border: 1px solid #6959CD;
+    display: inline-block;
+    margin: 10px 3px;
+    vertical-align: top;
+    overflow: hidden;
+    padding: 5px;
+    width: 311px;
+  }
+  .new {
+    width: 500px;
+  }
+  .up {
+    text-transform: uppercase;
+    font-size: 18px;
+  }
+
+  .menu__item {
+    position: relative;
+    top: 0;
+    left: 0;
+    list-style-type: none;
+  }
+
+  /* menu__item__link
+     -------------------------*/
+  .menu__item__link {
+    display: block;
+    text-decoration: none;
+  }
+
+  /* menu__item__sublist
+     -------------------------*/
+  .menu__item__sublist {
+    position: absolute;
+    display: none;
+  }
+  .menu__item:hover .menu__item__sublist {
+    display: block;
+  }
+
+  /* menu__item__sublist UL
+     -------------------------*/
+  .menu__item__sublist UL {
+  }
+
+  .menu__item__sublist_item {
+
+    /*list-style-type: none;*/
+  }
+
+  .menu__item__sublist_link {
+    display: block;
+    text-decoration: none;
+  }
+  .forecast {
+    float: left;
+    width: 100%;
+  }
+  .forecast-item {
+    display: table;
+    table-layout: fixed;
+    float: left;
+    width: 100%;
+    height: 86px;
+    border-bottom: 1px solid #D9DADE;
+  }
+  .forecast-item .span {
+    display: table-cell;
+    vertical-align: middle;
+    overflow: hidden;
+  }
+  .forecast-item .b {
+    font-size: 14px;
+    color: black;
+    font-weight: bold;
+    line-height: 100%;
+  }
+  .scores {
+    padding: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 24px;
+    vertical-align: top;
+    text-align: center;
+  }
+  .scores input[type="text"] {
+    height: 30px;
+    width: 38px;
+    border-top: 1px solid #82848B;
+    border-left: 1px solid #CECFD0;
+    border-right: 1px solid #CECFD0;
+    border-bottom: 1px solid #AAADB5;
+    color: #72A112;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .scores .dots {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 5px;
+    vertical-align: top;
+    line-height: 30px;
+  }
+  .subj-green {
+    float: left;
+    height: 42px;
+    background-color: #1abadc;
+    line-height: 42px;
+    color: white;
+    padding: 0 13px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+}

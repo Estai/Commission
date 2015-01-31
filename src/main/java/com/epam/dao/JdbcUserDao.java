@@ -1,6 +1,7 @@
 package com.epam.dao;
 
 
+import com.epam.entity.Application;
 import com.epam.entity.Role;
 import com.epam.entity.User;
 
@@ -10,11 +11,11 @@ import java.util.List;
 
 public class JdbcUserDao implements UserDao {
     private Connection connection;
-    private DaoHelper daoHelper;
+
 
     public JdbcUserDao(Connection connection) {
         this.connection = connection;
-        daoHelper = new DaoHelper();
+
     }
 
     @Override
@@ -36,7 +37,7 @@ public class JdbcUserDao implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, statement);
+            DaoHelper.close(resultSet, statement);
         }
         return users;
     }
@@ -61,7 +62,7 @@ public class JdbcUserDao implements UserDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return user;
     }
@@ -78,7 +79,7 @@ public class JdbcUserDao implements UserDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(prepareStatement);
+            DaoHelper.close(prepareStatement);
         }
 
         return isDelete;
@@ -103,7 +104,7 @@ public class JdbcUserDao implements UserDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(generatedKeys, preparedStatement);
+            DaoHelper.close(generatedKeys, preparedStatement);
         }
         return user;
     }
@@ -122,7 +123,7 @@ public class JdbcUserDao implements UserDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return user;
     }
@@ -147,7 +148,7 @@ public class JdbcUserDao implements UserDao {
             throw new DaoException(e);
 
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return user;
     }
@@ -166,7 +167,7 @@ public class JdbcUserDao implements UserDao {
                 user.setId(resultSet.getInt(1));
                 user.setLogin(resultSet.getString(2));
                 user.setPassword(resultSet.getString(3));
-                user.setRole(Role.valueOf(resultSet.getString(4)));
+                user.setRole(Role.valueOf(resultSet.getString(4).toUpperCase()));
 
 
             }
@@ -174,7 +175,7 @@ public class JdbcUserDao implements UserDao {
             throw new DaoException(e);
 
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return user;
     }

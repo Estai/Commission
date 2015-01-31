@@ -1,9 +1,9 @@
 package com.epam.entity;
 
 public class Group extends BaseEntity {
-    private String name;
-    private int numberStudent;
-    private Faculty faculty;
+    private String  name;
+    private Integer numberStudent;
+    private Integer idFaculty;
 
     public Group() {
     }
@@ -16,19 +16,19 @@ public class Group extends BaseEntity {
         this.name = name;
     }
 
-    public int getNumberStudent() {
+    public Integer getNumberStudent() {
         return numberStudent;
     }
 
-    public void setNumberStudent(int numberStudent) {
+    public void setNumberStudent(Integer numberStudent) {
         this.numberStudent = numberStudent;
     }
 
-    public Faculty getFaculty() {
-        return faculty;
+    public Integer getIdFaculty() {
+        return idFaculty;
     }
 
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
+    public void setIdFaculty(Integer idFaculty) {
+        this.idFaculty = idFaculty;
     }
 }

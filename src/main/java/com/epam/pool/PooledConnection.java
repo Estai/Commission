@@ -14,7 +14,7 @@ public class PooledConnection implements Connection {
         this.connection = connection;
         this.pool = pool;
     }
-
+    public Connection getConnection(){return connection;}
     @Override
     public Statement createStatement() throws SQLException {
         return connection.createStatement();

@@ -18,8 +18,10 @@ public class ChangePassAction implements Action {
             user.setPassword(newPass);
             User updateUser = userService.update(user);
             req.getSession().setAttribute("user",updateUser);
+            req.getSession().setAttribute("success","Пароль был изменен");
             return new ActionResult("profile");
         }
+
         return new ActionResult("profile");
     }
 }

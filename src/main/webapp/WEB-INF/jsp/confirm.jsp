@@ -14,9 +14,11 @@
         <section class="col-md-17 mainer">
             <%--<c:set var="groupName" value="${group}"/>--%>
             <%--<c:set var="message" value="${message}"/>--%>
-            <c:out value="${message}"/><c:out value="${group.name}"/><br>
+            <c:out value="${message}"/><br>
+                <c:forEach var="group" items="${application}">
+                <c:out value="${group.name}"/><br>
+                </c:forEach><br>
             <form action="${pageContext.request.contextPath}/do/send" method="post">
-                <input type="hidden" name="id_group" value="${group.name}">
                 <input type="hidden" name="id_enrollee" value="${enrollee.id}">
                 <input type="submit" name="submit" value="Да,заявку принять"/>
                 </form>

@@ -12,6 +12,7 @@
     <div class="row">
         <aside class="col-md-7"></aside>
         <section class="col-md-17 mainer">
+
         </section>
     </div>
 </div>

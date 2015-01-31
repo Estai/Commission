@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Enrollee extends User {
     private String firstName;
-    private int idUser;
+    private Integer idUser;
     private String lastName;
     private String middleName;
     private Map<Subject, Score> score;
@@ -62,11 +62,11 @@ public class Enrollee extends User {
         this.certificateNumber = certificateNumber;
     }
 
-    public int getIdUser() {
+    public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
 

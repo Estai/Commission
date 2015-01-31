@@ -48,7 +48,7 @@
                     <input name="certificate" type="text" size="30" maxlength="15">
                 </div>
 
-                <c:forEach var="select" items="${lst}">
+                <c:forEach var="select" items="${numberSubject}">
                 <div class="rows">
                     <label>Предмет:
                         <span class="required">*</span>

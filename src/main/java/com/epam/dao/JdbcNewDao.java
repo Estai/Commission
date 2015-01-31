@@ -1,5 +1,6 @@
 package com.epam.dao;
 
+import com.epam.entity.Application;
 import com.epam.entity.New;
 
 import java.sql.*;
@@ -8,11 +9,8 @@ import java.util.List;
 
 public class JdbcNewDao implements NewDao {
     private Connection connection;
-    private DaoHelper daoHelper;
-
     public JdbcNewDao(Connection connection) {
         this.connection = connection;
-        daoHelper = new DaoHelper();
     }
 
     @Override
@@ -38,7 +36,7 @@ public class JdbcNewDao implements NewDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, statement);
+            DaoHelper.close(resultSet, statement);
         }
         return news;
     }
@@ -64,7 +62,7 @@ public class JdbcNewDao implements NewDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return new1;
     }
@@ -81,7 +79,7 @@ public class JdbcNewDao implements NewDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(prepareStatement);
+            DaoHelper.close(prepareStatement);
         }
 
 
@@ -106,7 +104,7 @@ public class JdbcNewDao implements NewDao {
 
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return new1;
     }
@@ -128,7 +126,7 @@ public class JdbcNewDao implements NewDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return new1;
     }

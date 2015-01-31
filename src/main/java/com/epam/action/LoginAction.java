@@ -31,7 +31,7 @@ public class LoginAction implements Action {
 //            if (req.getSession().getAttribute("registered")!=null) {
 //                return new ActionResult("infoenr");
 //            }
-            return new ActionResult("index");
+            return new ActionResult("index",true);
         } else {
             req.setAttribute("credentialsError", "login or password incorrect");
             req.setAttribute("log", login);

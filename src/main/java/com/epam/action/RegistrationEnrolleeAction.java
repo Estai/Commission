@@ -10,6 +10,7 @@ import com.epam.entity.Score;
 import com.epam.entity.Subject;
 import com.epam.service.EnrolleeService;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
@@ -33,14 +34,11 @@ public class RegistrationEnrolleeAction implements Action {
             req.setAttribute("dataError", "Error");
             return new ActionResult("infoenrolle");
         }
-        scoreMap.put(Integer.parseInt(req.getParameter("subj[1]")), Integer.parseInt(req.getParameter("score[1]")));
-        scoreMap.put(Integer.parseInt(req.getParameter("subj[2]")), Integer.parseInt(req.getParameter("score[2]")));
-        scoreMap.put(Integer.parseInt(req.getParameter("subj[3]")), Integer.parseInt(req.getParameter("score[3]")));
-        scoreMap.put(Integer.parseInt(req.getParameter("subj[4]")), Integer.parseInt(req.getParameter("score[4]")));
-        scoreMap.put(Integer.parseInt(req.getParameter("subj[5]")), Integer.parseInt(req.getParameter("score[5]")));
-
-        List<Integer> lst = (List<Integer>) req.getSession().getAttribute("lst");
-        boolean registerEnrollee = Validator.registerEnrollee(lastname, firstname, middlename, certificate, numberCertificate, scoreMap, lst);
+        List<Integer> numberSubject = (List<Integer>) req.getServletContext().getAttribute("numberSubject");
+        for (int i = 0; i <numberSubject.size() ; i++) {
+            scoreMap.put(Integer.parseInt(req.getParameter("subj["+(i+1)+"]")), Integer.parseInt(req.getParameter("score["+(i+1)+"]")));
+        }
+        boolean registerEnrollee = Validator.registerEnrollee(lastname, firstname, middlename, certificate, numberCertificate, scoreMap, numberSubject);
         if (!registerEnrollee) {
             req.setAttribute("dataError", "Error");
             return new ActionResult("infoenrolle");
@@ -62,13 +60,6 @@ public class RegistrationEnrolleeAction implements Action {
             throw new DaoException(e);
         }
         req.getSession().setAttribute("enrollee", enrol);
-        List<Faculty> faculties = (List<Faculty>) DaoFactory.getDaoFactory("jdbc").createDaoManager().executeAndClose(new DaoCommand() {
-            @Override
-            public Object execute(DaoManager daoManager) {
-                return daoManager.getFacultyDao().findAll();
-            }
-        });
-        req.getSession().setAttribute("faculties", faculties);
         return new ActionResult("comission");
     }
 }

@@ -78,7 +78,7 @@ public class ConnectionPool {
 
     }
 
-    public Connection getConnection() {
+    public synchronized Connection getConnection() {
         PooledConnection pooledConnection = null;
         try {
             semaphore.acquire();
@@ -90,8 +90,19 @@ public class ConnectionPool {
 
         return pooledConnection;
     }
+  public void shutdown(){
+      try {
+          for (PooledConnection pooledConnection :connections) {
+              pooledConnection.getConnection().close();
 
-    public void realese(PooledConnection connection) {
+          }
+      } catch (SQLException e) {
+          String errorMessage = "Can't close connection pool";
+          LOGGER.error(errorMessage, e);
+          throw new PoolException(errorMessage, e);
+      }
+  }
+    public synchronized void realese(PooledConnection connection) {
         int release = connectionNumber - semaphore.availablePermits();
         connections.add(connection);
         semaphore.release(release);

@@ -8,6 +8,7 @@ public class ShowPageAction implements Action {
 
     public ShowPageAction(String view) {
         this.result = new ActionResult(view);
+
     }
 
     @Override

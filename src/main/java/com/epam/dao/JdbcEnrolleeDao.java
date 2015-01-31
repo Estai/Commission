@@ -1,21 +1,16 @@
 package com.epam.dao;
 
-import com.epam.entity.Enrollee;
-import com.epam.entity.Role;
-import com.epam.entity.Score;
-import com.epam.entity.Subject;
-import com.sun.org.apache.xpath.internal.SourceTree;
+import com.epam.entity.*;
 
 import java.sql.*;
 import java.util.*;
 
 public class JdbcEnrolleeDao implements EnrolleeDao {
     private Connection connection = null;
-    private DaoHelper daoHelper;
+
 
     public JdbcEnrolleeDao(Connection connection) {
         this.connection = connection;
-        daoHelper = new DaoHelper();
     }
 
     @Override
@@ -40,7 +35,7 @@ public class JdbcEnrolleeDao implements EnrolleeDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, statement);
+            DaoHelper.close(resultSet, statement);
         }
         return enrollees;
     }
@@ -65,7 +60,7 @@ public class JdbcEnrolleeDao implements EnrolleeDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return enrollee;
     }
@@ -94,8 +89,8 @@ public class JdbcEnrolleeDao implements EnrolleeDao {
             }
 
         } finally {
-            daoHelper.close(prepareStatement);
-            daoHelper.close(prepareStatement1);
+            DaoHelper.close(prepareStatement);
+            DaoHelper.close(prepareStatement1);
         }
         return isDelete;
     }
@@ -122,7 +117,7 @@ public class JdbcEnrolleeDao implements EnrolleeDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(generatedKeys, preparedStatement);
+            DaoHelper.close(generatedKeys, preparedStatement);
         }
         return enrollee;
     }
@@ -134,19 +129,20 @@ public class JdbcEnrolleeDao implements EnrolleeDao {
         try {
 
             preparedStatement = connection.prepareStatement("UPDATE ENROLLEE " +
-                    "SET FIRSTNAME=?,LASTNAME=?,CERTIFICATE=?,CERTIFICATENUMBER=? WHERE id=?");
-            preparedStatement.setInt(4, entity.getId());
+                    "SET FIRSTNAME=?,LASTNAME=?, MIDDLENAME=?,CERTIFICATE=?,CERTIFICATENUMBER=? WHERE id=?");
+            preparedStatement.setInt(6, entity.getId());
             preparedStatement.setString(1, entity.getFirstName());
             preparedStatement.setString(2, entity.getLastName());
-            preparedStatement.setDouble(3, entity.getCertificate());
-            preparedStatement.setString(4, entity.getCertificateNumber());
+            preparedStatement.setString(3, entity.getMiddleName());
+            preparedStatement.setDouble(4,entity.getCertificate());
+            preparedStatement.setString(5, entity.getCertificateNumber());
             preparedStatement.executeUpdate();
             enrollee = entity;
         } catch (Exception e) {
 
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return enrollee;
     }
@@ -173,7 +169,7 @@ public class JdbcEnrolleeDao implements EnrolleeDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
 
         return enrollee;
@@ -193,8 +189,44 @@ public class JdbcEnrolleeDao implements EnrolleeDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
 
     }
+
+    @Override
+    public Map<Integer, Integer> getScore(Integer id_enrollee) {
+        Map<Integer,Integer> scoreMap= new HashMap<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT ID_SUBJECT,ID_SCORE FROM ENR_SUBJECT WHERE ID_E=?");
+            preparedStatement.setInt(1, id_enrollee);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+              scoreMap.put(resultSet.getInt(1),resultSet.getInt(2));
+            }
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            DaoHelper.close(resultSet, preparedStatement);
+        }
+
+        return scoreMap;
+    }
+
+    @Override
+    public void deleteScore(Integer id) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("DELETE FROM ENR_SUBJECT WHERE ID_E=? ");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        }catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            DaoHelper.close(preparedStatement);
+        }
+    }
+
 }

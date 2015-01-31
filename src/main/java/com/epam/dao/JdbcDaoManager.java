@@ -1,8 +1,5 @@
 package com.epam.dao;
 
-import com.epam.entity.Score;
-import com.epam.entity.User;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -74,11 +71,11 @@ public class JdbcDaoManager implements DaoManager {
     }
 
     @Override
-    public StatementDao getStatementDao() {
+    public ApplicationDao getApplicationDao() {
         if (connection == null) {
             throw new DaoException("no connection");
         }
-        return new JdbcStatementDao(connection);
+        return new JdbcApplicationDao(connection);
     }
 
     @Override

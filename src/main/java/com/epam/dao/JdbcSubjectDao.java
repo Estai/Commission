@@ -1,6 +1,6 @@
 package com.epam.dao;
 
-import com.epam.entity.Enrollee;
+import com.epam.entity.Application;
 import com.epam.entity.Subject;
 
 import java.sql.*;
@@ -9,11 +9,9 @@ import java.util.List;
 
 public class JdbcSubjectDao implements SubjectDao {
     private Connection connection = null;
-    private DaoHelper daoHelper;
 
     public JdbcSubjectDao(Connection connection) {
         this.connection = connection;
-        daoHelper = new DaoHelper();
     }
 
     @Override
@@ -33,7 +31,7 @@ public class JdbcSubjectDao implements SubjectDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, statement);
+            DaoHelper.close(resultSet, statement);
         }
         return subjects;
     }
@@ -55,7 +53,7 @@ public class JdbcSubjectDao implements SubjectDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return subject;
     }
@@ -76,7 +74,7 @@ public class JdbcSubjectDao implements SubjectDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return subject;
     }
@@ -93,7 +91,7 @@ public class JdbcSubjectDao implements SubjectDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(prepareStatement);
+            DaoHelper.close(prepareStatement);
         }
 
         return isDelete;
@@ -111,7 +109,7 @@ public class JdbcSubjectDao implements SubjectDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return subject;
     }
@@ -129,7 +127,7 @@ public class JdbcSubjectDao implements SubjectDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return subject;
     }

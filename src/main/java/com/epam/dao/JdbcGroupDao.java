@@ -1,5 +1,6 @@
 package com.epam.dao;
 
+import com.epam.entity.Application;
 import com.epam.entity.Group;
 
 import java.sql.*;
@@ -8,10 +9,7 @@ import java.util.List;
 
 public class JdbcGroupDao implements GroupDao {
     private Connection connection;
-    private DaoHelper daoHelper;
-
     public JdbcGroupDao(Connection connection) {
-        daoHelper = new DaoHelper();
         this.connection = connection;
     }
 
@@ -28,13 +26,14 @@ public class JdbcGroupDao implements GroupDao {
                 group.setId(resultSet.getInt(1));
                 group.setName(resultSet.getString(2));
                 group.setNumberStudent(resultSet.getInt(3));
+                group.setIdFaculty(resultSet.getInt(4));
                 groups.add(group);
 
             }
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, statement);
+            DaoHelper.close(resultSet, statement);
         }
         return groups;
     }
@@ -57,7 +56,7 @@ public class JdbcGroupDao implements GroupDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return group;
 
@@ -76,7 +75,7 @@ public class JdbcGroupDao implements GroupDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(prepareStatement);
+            DaoHelper.close(prepareStatement);
         }
 
 
@@ -96,7 +95,7 @@ public class JdbcGroupDao implements GroupDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return group;
     }
@@ -116,7 +115,7 @@ public class JdbcGroupDao implements GroupDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return group;
     }
@@ -141,7 +140,7 @@ public class JdbcGroupDao implements GroupDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return groups;
     }

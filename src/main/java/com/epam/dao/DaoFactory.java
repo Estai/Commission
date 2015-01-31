@@ -1,6 +1,5 @@
 package com.epam.dao;
 
-import com.epam.entity.Statement;
 import com.epam.pool.ConnectionPool;
 import com.epam.pool.PoolException;
 

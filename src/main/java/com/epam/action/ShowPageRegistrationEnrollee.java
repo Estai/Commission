@@ -17,26 +17,6 @@ public class ShowPageRegistrationEnrollee implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         User user = (User) req.getSession().getAttribute("user");
         if (user != null) {
-            List<Subject> subjects = (List<Subject>) DaoFactory.getDaoFactory("jdbc").createDaoManager().executeAndClose(new DaoCommand() {
-                @Override
-                public Object execute(DaoManager daoManager) {
-                    return daoManager.getSubjectDao().findAll();
-                }
-            });
-            req.getSession().setAttribute("subjects", subjects);
-
-            List<Score> scores = (List<Score>) DaoFactory.getDaoFactory("jdbc").createDaoManager().executeAndClose(new DaoCommand() {
-                @Override
-                public Object execute(DaoManager daoManager) {
-                    return daoManager.getScoreDao().findAll();
-                }
-            });
-            req.getSession().setAttribute("scores", scores);
-            List<Integer> list=new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
-                list.add(i+1);
-            }
-            req.getSession().setAttribute("lst", list);
             return new ActionResult("infoenrolle");
         }
 

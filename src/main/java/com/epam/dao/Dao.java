@@ -1,8 +1,8 @@
 package com.epam.dao;
 
+import com.epam.entity.Application;
 import com.epam.entity.BaseEntity;
 
-import java.sql.SQLException;
 import java.util.List;
 
 

@@ -1,21 +1,17 @@
 package com.epam.dao;
 
+import com.epam.entity.Application;
 import com.epam.entity.Score;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcScoreDao implements ScoreDao {
     private Connection connection;
-    private DaoHelper daoHelper;
 
     public JdbcScoreDao(Connection connection) {
         this.connection = connection;
-        daoHelper = new DaoHelper();
     }
 
     @Override
@@ -35,14 +31,32 @@ public class JdbcScoreDao implements ScoreDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, statement);
+            DaoHelper.close(resultSet, statement);
         }
         return scores;
     }
 
     @Override
     public Score findById(Integer id) {
-        return null;
+
+        Score score = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM SUBJECT WHERE id=?");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                score = new Score();
+                score.setId(resultSet.getInt(1));
+                score.setScore(resultSet.getString(2));
+            }
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            DaoHelper.close(resultSet, preparedStatement);
+        }
+        return score;
     }
 
     @Override

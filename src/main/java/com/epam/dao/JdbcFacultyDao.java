@@ -1,7 +1,7 @@
 package com.epam.dao;
 
+import com.epam.entity.Application;
 import com.epam.entity.Faculty;
-import com.epam.entity.Subject;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,10 +9,8 @@ import java.util.List;
 
 public class JdbcFacultyDao implements FacultyDao {
     private Connection connection = null;
-    private DaoHelper daoHelper;
 
     public JdbcFacultyDao(Connection connection) {
-        daoHelper = new DaoHelper();
         this.connection = connection;
     }
 
@@ -33,7 +31,7 @@ public class JdbcFacultyDao implements FacultyDao {
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, statement);
+            DaoHelper.close(resultSet, statement);
         }
         return faculties;
     }
@@ -55,7 +53,7 @@ public class JdbcFacultyDao implements FacultyDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(resultSet, preparedStatement);
+            DaoHelper.close(resultSet, preparedStatement);
         }
         return faculty;
 
@@ -73,7 +71,7 @@ public class JdbcFacultyDao implements FacultyDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(prepareStatement);
+            DaoHelper.close(prepareStatement);
         }
 
         return isDelete;
@@ -91,7 +89,7 @@ public class JdbcFacultyDao implements FacultyDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return faculty;
     }
@@ -110,7 +108,7 @@ public class JdbcFacultyDao implements FacultyDao {
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            daoHelper.close(preparedStatement);
+            DaoHelper.close(preparedStatement);
         }
         return faculty;
     }

@@ -1,5 +1,7 @@
 package com.epam.listener;
 
+import com.epam.Helper;
+import com.epam.LocaleManager;
 import com.epam.dao.DaoCommand;
 import com.epam.dao.DaoFactory;
 import com.epam.dao.DaoManager;
@@ -16,9 +18,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @WebListener()
 public class ContextListener implements ServletContextListener {
@@ -26,10 +26,6 @@ public class ContextListener implements ServletContextListener {
     ResourceBundle bundle=ResourceBundle.getBundle("db");
     ResourceBundle resourceBundle=ResourceBundle.getBundle("app");
     ConnectionPool pool = ConnectionPool.instance();
-    SubjectService subjectService;
-    ScoreService scoreService;
-    FacultyService facultyService;
-    GroupService groupService;
 
     public void contextInitialized(ServletContextEvent sce) {
         pool.setParam(bundle.getString("driverName"), bundle.getString("url"), bundle.getString("username"), bundle.getString("pass"),Integer.parseInt(bundle.getString("connectionNumber")));
@@ -40,28 +36,25 @@ public class ContextListener implements ServletContextListener {
             numberSubject.add(i+1);
         }
         sce.getServletContext().setAttribute("numberSubject", numberSubject);
-        subjectService=new SubjectService();
+
+        SubjectService subjectService = Helper.getInstance().getSubjectService();
         List<Subject> subjects = subjectService.findAll();
         sce.getServletContext().setAttribute("subjects", subjects);
 
-        scoreService=new ScoreService();
+        ScoreService scoreService = Helper.getInstance().getScoreService();
         List<Score> scores = scoreService.findAll();
         sce.getServletContext().setAttribute("scores", scores);
 
-        groupService=new GroupService();
-        List<Group> groups = groupService.findAll();
-        sce.getServletContext().setAttribute("groups", groups);
+//        GroupService groupService = Helper.getInstance().getGroupService();
+//        List<Group> groups = groupService.findAll();
+//        sce.getServletContext().setAttribute("groups", groups);
 
-        facultyService=new FacultyService();
+        FacultyService facultyService = Helper.getInstance().getFacultyService();
         List<Faculty> faculties = facultyService.findAll();
         sce.getServletContext().setAttribute("faculties", faculties);
-//        try {
-//            pool.initConnection();
-//        } catch (SQLException e) {
-//            LOGGER.error(e);
-//            throw new PoolException(e);
-//        }
 
+        HashMap<String, Locale> locales = LocaleManager.getInstance().getLocales();
+        sce.getServletContext().setAttribute("locales", locales);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

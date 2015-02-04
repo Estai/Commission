@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
 public class LoginAction implements Action {
+
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         final String login = req.getParameter("log");

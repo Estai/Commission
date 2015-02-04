@@ -34,7 +34,7 @@ public class SecurityFilter implements Filter {
                 resp.sendRedirect(location);
                 return;}
         }
-        if(pathInfo.endsWith("faculty") || pathInfo.endsWith("group")){
+        if( pathInfo.endsWith("group")){
             if (req.getSession().getAttribute("enrollee") == null) {
                 String location = req.getContextPath() + "/do/infoenrollee";
                 resp.sendRedirect(location);

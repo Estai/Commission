@@ -5,9 +5,18 @@ package com.epam.entity;
  */
 public class Subject extends BaseEntity {
     private String name;
+    private boolean main;
 
     public Subject() {
 
+    }
+
+    public boolean isMain() {
+        return main;
+    }
+
+    public void setMain(boolean main) {
+        this.main = main;
     }
 
     public String getName() {

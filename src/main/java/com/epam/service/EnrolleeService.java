@@ -37,6 +37,7 @@ return enrollee;
 
 
         });
+        enrollee.setScore(getScore(enrollee.getId()));
    return enrollee;
     }
     public Map<Subject,Score> getScore(final Integer id_enrollee){

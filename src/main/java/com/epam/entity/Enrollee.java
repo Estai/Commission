@@ -1,5 +1,7 @@
 package com.epam.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Enrollee extends User {
@@ -11,7 +13,8 @@ public class Enrollee extends User {
     private Double certificate;
     private String certificateNumber;
 
-    public Enrollee() {
+
+    public Enrollee(){
     }
 
     public String getFirstName() {
@@ -69,6 +72,9 @@ public class Enrollee extends User {
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
+
+
+
 
     @Override
     public boolean equals(Object obj) {

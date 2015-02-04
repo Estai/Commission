@@ -27,20 +27,16 @@
         <section class="col-md-17 mainer">
 
             <h3>Приемная комиссия</h3>
-            <c:out value="${DataError}"/><br>
-
+         <c:if test="${not empty DataError || not empty success  }" >${DataError}
+            ${success}<br>
+         </c:if>
             Выберите Группу:
-
-       <form action="${pageContext.request.contextPath}/do/group" method="post">
+            <form action="${pageContext.request.contextPath}/do/group" method="post">
                 <c:forEach var="faculty" items="${faculties}">
                     <div onclick="open('${faculty.id}')"><c:out value="${faculty.name}"/></div>
                     <div id="${faculty.id}">
-                <c:forEach var="group" items="${groups}">
-                <c:choose>
-                    <c:when test="${group.idFaculty==faculty.id}">
-                        <input type="checkbox" name="${group.name}" id="${group.id}" value="${group.id}"/><c:out value="${group.name}"/><br>
-                    </c:when>
-                </c:choose>
+                <c:forEach var="group" items="${faculty.groups}">
+                        <input type="checkbox" name="group"  value="${group.id}"/><c:out value="${group.name}"/><br>
                 </c:forEach>
                     </div>
                 </c:forEach>

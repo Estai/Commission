@@ -18,7 +18,7 @@ public class ActionFactory {
         actions.put("GET/infoenrollee", new ShowPageRegistrationEnrollee());
         actions.put("POST/comission",new RegistrationEnrolleeAction());
         actions.put("GET/comission", new ShowPageAction("comission"));
-//        actions.put("POST/faculty", new ShowGroupAction());
+
 //        actions.put("GET/faculty", new ShowPageAction("comission"));
         actions.put("POST/group", new ConfirmPageAction());
         actions.put("GET/confirm", new ShowPageAction("confirm"));
@@ -29,7 +29,13 @@ public class ActionFactory {
 //        actions.put("GET/changePass", new ShowPageAction("profile"));
         actions.put("POST/changeInfoEnrollee", new ChangeInfoEnrolleeAction());
         actions.put("POST/removeApplication", new DeleteApplicationAction());
-
+        actions.put("GET/admin",new AdminAction());
+        actions.put("GET/faculty", new FacultyAdminAction());
+        actions.put("POST/deleteFaculty",new DeleteFaculty());
+        actions.put("GET/edit",new EditGroup());
+        actions.put("GET/getPriority",new GetPriority());
+        actions.put("GET/updatePage", new ShowPageAction("updatePage"));
+        actions.put("POST/updatePriority",new UpdatePriority());
 
 
         actions.put("GET/university", new ShowPageAction("university"));

@@ -53,7 +53,13 @@
           <tr><td>
             <input type="checkbox" name="${statement.id}" value="${statement.id}">
           </td>
-            <td> <c:out value="${statement.groupName}"/></td><td> <c:out value="${statement.priority}"/><br></td></tr>
+            <td> <c:out value="${statement.groupName}"/></td><td>
+            ${statement.priority}
+            </td>
+            <td style="border: hidden; border-left:thick">
+            <a class="" href="${pageContext.request.contextPath}/do/getPriority?id=${statement.id}">Изменить приоритет</a>
+            </td>
+          </tr>
         </c:forEach>
       </table>
         <p>
@@ -63,7 +69,7 @@
         <br>
       </c:if>
 <c:if test="${not empty enrollee}">
-
+  <h3>Данные абитуриента</h3>
       <form action="${pageContext.request.contextPath}/do/changeInfoEnrollee" method="post">
         <div class="rows">
           <label>Фамилия:
@@ -98,26 +104,47 @@
         </div>
 
         <c:forEach var="subjectsMap" items="${subjectsMap}">
-
+         <c:if test="${subjectsMap.key.main}">
           <div class="rows">
-            <label>Предмет:
+            <label>Предмет: <br>${subjectsMap.key.name}
               <span class="required">*</span>
             </label>
-            <select name="subjID[${subjectsMap.key.id}]" size="1">
-              <option disabled selected>${subjectsMap.key.name}</option>
-              <c:forEach var="list" items="${subjects}">
-                <option value="${list.id}">${list.name}</option>
-              </c:forEach>
-            </select>
             Баллы(оценки) <span class="required">*</span>
-            <select name="scoreID[${subjectsMap.value.id}]" size="1">
-              <option disabled selected>${subjectsMap.value.id}</option>
-              <c:forEach var="list1" items="${scores}">
-                <option value="${list1.id}">${list1.score}</option>
+            <select name="scoreID[${subjectsMap.key.id}]" size="1">
+
+              <c:forEach var="score" items="${scores}">
+                <option value="${score.id}"<c:if test="${score.id eq subjectsMap.value.id}"> selected</c:if>>${score.score}</option>
               </c:forEach>
             </select>
           </div>
+         </c:if>
         </c:forEach>
+
+
+        <c:forEach var="subjectsMap" items="${subjectsMap}">
+          <c:if test="${not subjectsMap.key.main}">
+            <div class="rows">
+                <label>Предмет:
+                <span class="required">*</span>
+                </label>
+                <select name="subj" size="1">
+                <c:forEach var="subject" items="${subjects}">
+                  <c:if test="${not subject.main}">
+                  <option value="${subject.id}" <c:if test="${subject.name eq subjectsMap.key.name}"> selected</c:if>>${subject.name}</option>
+                  </c:if>
+                </c:forEach>
+                </select>
+              Баллы(оценки) <span class="required">*</span>
+              <select name="score[]" size="1">
+
+                <c:forEach var="score" items="${scores}">
+                  <option value="${score.id}"<c:if test="${score.id eq subjectsMap.value.id}"> selected</c:if>>${score.score}</option>
+                </c:forEach>
+              </select>
+            </div>
+          </c:if>
+        </c:forEach>
+
         <p>
           <input type="submit" name="submit" value="Сохранить">
         </p>

@@ -26,8 +26,7 @@ public class ProfileAction implements Action {
             ApplicationService service=new ApplicationService();
             List<Application> applications = service.findByIdEnrollee(enrollee.getId());
             req.getSession().setAttribute("applications",applications);
-            Map<Subject, Score> subjectWithScore = enrolleeService.getScore(enrollee.getId());
-            Set<Map.Entry<Subject, Score>> subjectsMap = subjectWithScore.entrySet();
+            Set<Map.Entry<Subject, Score>> subjectsMap = enrollee.getScore().entrySet();
             req.getSession().setAttribute("subjectsMap",subjectsMap);
 
         }

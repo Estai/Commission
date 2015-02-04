@@ -26,6 +26,7 @@ public class JdbcFacultyDao implements FacultyDao {
                 Faculty faculty = new Faculty();
                 faculty.setId(resultSet.getInt(1));
                 faculty.setName(resultSet.getString(2));
+                faculty.setDecan(resultSet.getString(4));
                 faculties.add(faculty);
             }
         } catch (SQLException e) {
@@ -43,12 +44,14 @@ public class JdbcFacultyDao implements FacultyDao {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = connection.prepareStatement("SELECT NAME FROM FACULTY WHERE ID=?");
+            preparedStatement = connection.prepareStatement("SELECT NAME,DECAN FROM FACULTY WHERE ID=?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 faculty = new Faculty();
+                faculty.setId(id);
                 faculty.setName(resultSet.getString(1));
+                faculty.setDecan(resultSet.getString(2));
             }
         } catch (Exception e) {
             throw new DaoException(e);
@@ -61,20 +64,7 @@ public class JdbcFacultyDao implements FacultyDao {
 
     @Override
     public boolean delete(Faculty entity) {
-        boolean isDelete = false;
-        PreparedStatement prepareStatement = null;
-        try {
-            prepareStatement = connection.prepareStatement("DELETE FROM FACULTY WHERE ID=?");
-            prepareStatement.setInt(1, entity.getId());
-            prepareStatement.executeUpdate();
-            isDelete = true;
-        } catch (Exception e) {
-            throw new DaoException(e);
-        } finally {
-            DaoHelper.close(prepareStatement);
-        }
-
-        return isDelete;
+        return deleteById(entity.getId());
     }
 
     @Override
@@ -82,8 +72,9 @@ public class JdbcFacultyDao implements FacultyDao {
         Faculty faculty = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("INSERT INTO  FACULTY(NAME) VALUES(?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO  FACULTY(NAME,DECAN) VALUES(?,?)");
             preparedStatement.setString(1, entity.getName());
+            preparedStatement.setString(2, entity.getDecan());
             preparedStatement.executeUpdate();
             faculty = entity;
         } catch (Exception e) {
@@ -99,10 +90,10 @@ public class JdbcFacultyDao implements FacultyDao {
         Faculty faculty = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("UPDATE FACULTY SET NAME=? WHERE ID=?");
-            preparedStatement.setInt(2, entity.getId());
+            preparedStatement = connection.prepareStatement("UPDATE FACULTY SET NAME=?,DECAN=? WHERE ID=?");
+            preparedStatement.setInt(3, entity.getId());
             preparedStatement.setString(1, entity.getName());
-
+            preparedStatement.setString(2, entity.getDecan());
             preparedStatement.executeUpdate();
             faculty = entity;
         } catch (Exception e) {
@@ -111,5 +102,23 @@ public class JdbcFacultyDao implements FacultyDao {
             DaoHelper.close(preparedStatement);
         }
         return faculty;
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        boolean isDelete = false;
+        PreparedStatement prepareStatement = null;
+        try {
+            prepareStatement = connection.prepareStatement("DELETE FROM FACULTY WHERE ID=?");
+            prepareStatement.setInt(1, id);
+            prepareStatement.executeUpdate();
+            isDelete = true;
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            DaoHelper.close(prepareStatement);
+        }
+
+        return isDelete;
     }
 }

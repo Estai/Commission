@@ -1,5 +1,6 @@
 package com.epam.action;
 
+import com.epam.Helper;
 import com.epam.dao.DaoCommand;
 import com.epam.dao.DaoException;
 import com.epam.dao.DaoFactory;
@@ -14,11 +15,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RegistrationEnrolleeAction implements Action {
+    ActionResult againPage=new ActionResult("infoenrolle");
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         String lastname = req.getParameter("lastname");
@@ -27,22 +27,28 @@ public class RegistrationEnrolleeAction implements Action {
         String numberCertificate = req.getParameter("number");
         String certificate = req.getParameter("certificate");
         String idUser = req.getParameter("user.id");
-        EnrolleeService enrolleeService = new EnrolleeService();
-        Map<Integer, Integer> scoreMap = new HashMap<>();
-        boolean nullParameters = Validator.isNullParameters(req.getParameter("subj[1]"), req.getParameter("subj[2]"), req.getParameter("subj[3]"), req.getParameter("subj[4]"), req.getParameter("subj[5]"));
-        if(nullParameters){
-            req.setAttribute("dataError", "Error");
-            return new ActionResult("infoenrolle");
+        EnrolleeService enrolleeService = Helper.getInstance().getEnrolleeService();
+
+        if ( Validator.isNullParameters(lastname, firstname, middlename, certificate, numberCertificate) || Validator.isNullParameters(req.getParameter("subj"))
+                || Validator.isNullParameters(req.getParameter("score"))) {
+            req.setAttribute("dataError", "Не все данные введены");
+            return againPage;
         }
-        List<Integer> numberSubject = (List<Integer>) req.getServletContext().getAttribute("numberSubject");
-        for (int i = 0; i <numberSubject.size() ; i++) {
-            scoreMap.put(Integer.parseInt(req.getParameter("subj["+(i+1)+"]")), Integer.parseInt(req.getParameter("score["+(i+1)+"]")));
+
+        Iterator<Subject> iterator = Helper.getInstance().getSubjectService().findMainSubject().iterator();
+        Map<Integer,Integer> scoreMap=new HashMap<>();
+        while(iterator.hasNext()){
+            Subject subject = iterator.next();
+            String score = req.getParameter("score[" + subject.getId() + "]");
+            if(Validator.isNullParameters(score)){
+                req.setAttribute("dataError", "Не все данные введены");
+                return againPage;
+            }
+          scoreMap.put(Integer.parseInt(req.getParameter(subject.getName())),Integer.parseInt(score));
         }
-        boolean registerEnrollee = Validator.registerEnrollee(lastname, firstname, middlename, certificate, numberCertificate, scoreMap, numberSubject);
-        if (!registerEnrollee) {
-            req.setAttribute("dataError", "Error");
-            return new ActionResult("infoenrolle");
-        }
+        scoreMap.put(Integer.parseInt(req.getParameter("subj")),Integer.parseInt(req.getParameter("score")));
+
+
 
         Enrollee enrollee = new Enrollee();
 

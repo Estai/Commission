@@ -46,18 +46,8 @@ public class Validator {
         if (!pass.equals(confirmPass)) {req.setAttribute("passError", "passwords do not match"); return false;}
         return true;
     }
-    public static Map<Integer,Integer> notNullMap(Map<Integer,Integer> noselectedMap){
-        Map<Integer, Integer> selectedMap = new HashMap<>();
-        Set<Integer> keys = noselectedMap.keySet();
-        for (Integer key:keys){
-            if(noselectedMap.get(key)!=null){
 
-                selectedMap.put(key,noselectedMap.get(key));
-            }
-        }
 
-return selectedMap;
-    }
     public  static boolean isNullParameters(String lastname, String firstname, String middlename, String certificate, String numberCertificate) {
         if (lastname == null || firstname == null ||
                 middlename == null || certificate == null || numberCertificate == null) {
@@ -65,11 +55,12 @@ return selectedMap;
         }
         return false;
     }
-
-    public static boolean registerEnrollee(String lastname, String firstname, String middlename, String certificate, String numberCertificate, Map<Integer, Integer> scoreMap,List<Integer> lst) {
-        Map<Integer, Integer> selectMap = notNullMap(scoreMap);
-        if(isNullParameters(lastname,firstname,middlename,certificate,numberCertificate)) return false;
-        if(selectMap.size()!= lst.size()) return false;
-       return true;
+    public  static boolean isNullParameters(String parameter) {
+        if (parameter==null) {
+            return true;
+        }
+        return false;
     }
+
+
 }

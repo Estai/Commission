@@ -2,6 +2,7 @@ package com.epam.dao;
 
 import com.epam.entity.Application;
 import com.epam.entity.Group;
+import com.epam.entity.Subject;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public class JdbcGroupDao implements GroupDao {
                 group.setName(resultSet.getString(2));
                 group.setNumberStudent(resultSet.getInt(3));
                 group.setIdFaculty(resultSet.getInt(4));
+                Subject subject=new Subject();
+                subject.setId(resultSet.getInt(5));
+                group.setProfileSubject(subject);
                 groups.add(group);
 
             }
@@ -44,7 +48,7 @@ public class JdbcGroupDao implements GroupDao {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = connection.prepareStatement("SELECT ID,NAME,NUMBERSTUDENT FROM GROUPS WHERE ID=?");
+            preparedStatement = connection.prepareStatement("SELECT ID,NAME,NUMBERSTUDENT,IDPROFILESUBJ FROM GROUPS WHERE ID=?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -52,6 +56,9 @@ public class JdbcGroupDao implements GroupDao {
                 group.setId(resultSet.getInt(1));
                 group.setName(resultSet.getString(2));
                 group.setNumberStudent(resultSet.getInt(3));
+                Subject subject=new Subject();
+                subject.setId(resultSet.getInt(4));
+                group.setProfileSubject(subject);
             }
         } catch (Exception e) {
             throw new DaoException(e);
@@ -87,9 +94,10 @@ public class JdbcGroupDao implements GroupDao {
         Group group = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("INSERT INTO  GROUPS(NAME,NUMBERSTUDENT) VALUES(?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO  GROUPS(NAME,NUMBERSTUDENT,IDPROFILESUBJ) VALUES(?,?,?)");
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setInt(2, entity.getNumberStudent());
+            preparedStatement.setInt(3, entity.getProfileSubject().getId());
             preparedStatement.executeUpdate();
             group = entity;
         } catch (Exception e) {
@@ -105,11 +113,11 @@ public class JdbcGroupDao implements GroupDao {
         Group group = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("UPDATE GROUPS SET NAME=?,NUMBERSTUDENT=? WHERE ID=?");
-            preparedStatement.setInt(3, entity.getId());
+            preparedStatement = connection.prepareStatement("UPDATE GROUPS SET NAME=?,NUMBERSTUDENT=?,IDPROFILESUBJ=? WHERE ID=?");
+            preparedStatement.setInt(4, entity.getId());
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setInt(2, entity.getNumberStudent());
-
+            preparedStatement.setInt(3, entity.getProfileSubject().getId());
             preparedStatement.executeUpdate();
             group = entity;
         } catch (Exception e) {
@@ -135,6 +143,10 @@ public class JdbcGroupDao implements GroupDao {
                 group.setId(resultSet.getInt(1));
                 group.setName(resultSet.getString(2));
                 group.setNumberStudent(resultSet.getInt(3));
+                group.setIdFaculty(resultSet.getInt(4));
+                Subject subject=new Subject();
+                subject.setId(resultSet.getInt(5));
+                group.setProfileSubject(subject);
                 groups.add(group);
             }
         } catch (SQLException e) {

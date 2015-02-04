@@ -26,6 +26,7 @@ public class JdbcSubjectDao implements SubjectDao {
                 Subject subject = new Subject();
                 subject.setId(resultSet.getInt(1));
                 subject.setName(resultSet.getString(2));
+                subject.setMain(resultSet.getInt(3)==1);
                 subjects.add(subject);
             }
         } catch (SQLException e) {
@@ -49,6 +50,7 @@ public class JdbcSubjectDao implements SubjectDao {
                 subject = new Subject();
                 subject.setId(resultSet.getInt(1));
                 subject.setName(resultSet.getString(2));
+                subject.setMain(resultSet.getInt(3)==1);
             }
         } catch (Exception e) {
             throw new DaoException(e);
@@ -70,6 +72,7 @@ public class JdbcSubjectDao implements SubjectDao {
                 subject = new Subject();
                 subject.setId(resultSet.getInt(1));
                 subject.setName(resultSet.getString(2));
+                subject.setMain(resultSet.getInt(3)==1);
             }
         } catch (Exception e) {
             throw new DaoException(e);
@@ -102,8 +105,9 @@ public class JdbcSubjectDao implements SubjectDao {
         Subject subject = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("INSERT INTO  SUBJECT(NAME) VALUES(?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO  SUBJECT(NAME,MAIN) VALUES(?,?)");
             preparedStatement.setString(1, entity.getName());
+            preparedStatement.setBoolean(2, entity.isMain());
             preparedStatement.executeUpdate();
             subject = entity;
         } catch (Exception e) {
@@ -119,8 +123,9 @@ public class JdbcSubjectDao implements SubjectDao {
         Subject subject = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("UPDATE SUBJECT SET NAME=? WHERE id=?");
-            preparedStatement.setInt(2, entity.getId());
+            preparedStatement = connection.prepareStatement("UPDATE SUBJECT SET NAME=?,MAIN=? WHERE id=?");
+            preparedStatement.setInt(3, entity.getId());
+            preparedStatement.setBoolean(2,entity.isMain());
             preparedStatement.setString(1, entity.getName());
             preparedStatement.executeUpdate();
             subject = entity;
@@ -130,5 +135,28 @@ public class JdbcSubjectDao implements SubjectDao {
             DaoHelper.close(preparedStatement);
         }
         return subject;
+    }
+
+    @Override
+    public List<Subject> findMainSubject() {
+        List<Subject> subjects = new ArrayList<>();
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM SUBJECT WHERE MAIN='1';");
+            while (resultSet.next()) {
+                Subject subject = new Subject();
+                subject.setId(resultSet.getInt(1));
+                subject.setName(resultSet.getString(2));
+                subject.setMain(resultSet.getInt(3)==1);
+                subjects.add(subject);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            DaoHelper.close(resultSet, statement);
+        }
+        return subjects;
     }
 }

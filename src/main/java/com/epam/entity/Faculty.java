@@ -1,13 +1,16 @@
 package com.epam.entity;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Faculty extends BaseEntity {
     private String name;
+    private String decan;
     private List<Group> groups;
 
     public Faculty() {
+        groups=new ArrayList<>();
     }
 
     public String getName() {
@@ -26,11 +29,19 @@ public class Faculty extends BaseEntity {
         this.groups = groups;
     }
 
-    public void add(Group group) {
-        groups.add(group);
+    public void add(List<Group> group) {
+        groups.addAll(group);
     }
 
-    public void remove(Group group) {
-        groups.remove(group);
+    public void remove(List<Group> group) {
+        groups.removeAll(group);
+    }
+
+    public String getDecan() {
+        return decan;
+    }
+
+    public void setDecan(String decan) {
+        this.decan = decan;
     }
 }

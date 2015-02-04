@@ -48,27 +48,45 @@
                     <input name="certificate" type="text" size="30" maxlength="15">
                 </div>
 
-                <c:forEach var="select" items="${numberSubject}">
+                <c:forEach var="subject" items="${subjects}">
+                <c:if test="${subject.main}">
+                <div class="rows">
+                    <label>Предмет: <br>${subject.name}
+                        <span class="required">*</span>
+                    </label>
+                    Баллы(оценки) <span class="required">*</span>
+                    <select name="score[${subject.id}]" size="1">
+                        <option disabled selected>Выберите оценку</option>
+                        <c:forEach var="score" items="${scores}">
+                            <option value="${score.id}">${score.score}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                </c:if>
+                </c:forEach>
+
                 <div class="rows">
                     <label>Предмет:
                         <span class="required">*</span>
                     </label>
-                    <select name="subj[${select}]" size="1">
-                        <option disabled>Выберите Предмет</option>
-                        <c:forEach var="list" items="${subjects}">
-                            <option value="${list.id}">${list.name}</option>
+
+                        <select name="subj" size="1">
+                        <option disabled selected>Выберите Предмет</option>
+                        <c:forEach var="subject" items="${subjects}">
+                            <c:if test="${not subject.main}">
+                        <option value="${subject.id}">${subject.name}</option>
+                            </c:if>
                         </c:forEach>
-                    </select>
+                        </select>
                     Баллы(оценки) <span class="required">*</span>
-                    <select name="score[${select}]" size="1">
-                        <option disabled>Выберите оценку</option>
-                        <c:forEach var="list1" items="${scores}">
-                            <option value="${list1.id}">${list1.score}</option>
+                    <select name="score" size="1">
+                        <option disabled selected>Выберите оценку</option>
+                        <c:forEach var="score" items="${scores}">
+                            <option value="${score.id}">${score.score}</option>
                         </c:forEach>
                     </select>
                 </div>
                 <p>
-                    </c:forEach>
                     <input type="hidden" name="user.id" value="${user.id}">
                     <input type="submit" name="submit" value="Сохранить">
                 </p></form>

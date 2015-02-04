@@ -5,12 +5,17 @@ import com.epam.dao.DaoManager;
 import com.epam.entity.Role;
 import com.epam.entity.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class r {
 
 
     public static void main(String[] args) {
+       List<String> strings=new ArrayList<>();
+        strings.add(0,"Estai");
+        strings.add(1,"FFFF");
+
 
 
 //

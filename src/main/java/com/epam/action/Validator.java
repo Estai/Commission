@@ -56,7 +56,7 @@ public class Validator {
         return false;
     }
     public  static boolean isNullParameters(String parameter) {
-        if (parameter==null) {
+        if (parameter.isEmpty() || parameter==null) {
             return true;
         }
         return false;

@@ -71,16 +71,21 @@ public class JdbcFacultyDao implements FacultyDao {
     public Faculty create(Faculty entity) {
         Faculty faculty = null;
         PreparedStatement preparedStatement = null;
+        ResultSet generatedKeys = null;
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO  FACULTY(NAME,DECAN) VALUES(?,?)");
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setString(2, entity.getDecan());
             preparedStatement.executeUpdate();
+            generatedKeys = preparedStatement.getGeneratedKeys();
+            while (generatedKeys.next()) {
+                entity.setId(generatedKeys.getInt(1));
+            }
             faculty = entity;
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            DaoHelper.close(preparedStatement);
+            DaoHelper.close(generatedKeys,preparedStatement);
         }
         return faculty;
     }
@@ -120,5 +125,23 @@ public class JdbcFacultyDao implements FacultyDao {
         }
 
         return isDelete;
+    }
+
+    @Override
+    public boolean findByName(String name) {
+        boolean flag=false;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT 1 FROM FACULTY WHERE NAME=?");
+            preparedStatement.setString(1, name);
+            resultSet = preparedStatement.executeQuery();
+            flag=resultSet.next();
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            DaoHelper.close(resultSet, preparedStatement);
+        }
+return flag;
     }
 }

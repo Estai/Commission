@@ -93,17 +93,24 @@ public class JdbcGroupDao implements GroupDao {
     public Group create(Group entity) {
         Group group = null;
         PreparedStatement preparedStatement = null;
+        ResultSet generatedKeys = null;
         try {
-            preparedStatement = connection.prepareStatement("INSERT INTO  GROUPS(NAME,NUMBERSTUDENT,IDPROFILESUBJ) VALUES(?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO  GROUPS(NAME,NUMBERSTUDENT,IDPROFILESUBJ,ID_FACUL) VALUES(?,?,?,?)");
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setInt(2, entity.getNumberStudent());
             preparedStatement.setInt(3, entity.getProfileSubject().getId());
+            preparedStatement.setInt(4, entity.getIdFaculty());
             preparedStatement.executeUpdate();
+            generatedKeys = preparedStatement.getGeneratedKeys();
+            while (generatedKeys.next()) {
+                entity.setId(generatedKeys.getInt(1));
+            }
             group = entity;
         } catch (Exception e) {
             throw new DaoException(e);
         } finally {
-            DaoHelper.close(preparedStatement);
+            DaoHelper.close(generatedKeys,preparedStatement);
+
         }
         return group;
     }
@@ -156,4 +163,8 @@ public class JdbcGroupDao implements GroupDao {
         }
         return groups;
     }
+
+
+
+
 }

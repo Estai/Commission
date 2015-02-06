@@ -30,12 +30,14 @@ public class ActionFactory {
         actions.put("POST/changeInfoEnrollee", new ChangeInfoEnrolleeAction());
         actions.put("POST/removeApplication", new DeleteApplicationAction());
         actions.put("GET/admin",new AdminAction());
-        actions.put("GET/faculty", new FacultyAdminAction());
+        actions.put("GET/faculty", new ShowPageAction("admin/faculty"));
         actions.put("POST/deleteFaculty",new DeleteFaculty());
         actions.put("GET/edit",new EditGroup());
         actions.put("GET/getPriority",new GetPriority());
         actions.put("GET/updatePage", new ShowPageAction("updatePage"));
         actions.put("POST/updatePriority",new UpdatePriority());
+        actions.put("GET/addPage",new ShowPageAction("admin/addPage"));
+        actions.put("POST/addFaculty",new AddFaculty());
 
 
         actions.put("GET/university", new ShowPageAction("university"));

@@ -2,19 +2,17 @@
 <html>
 <head>
     <title>Приемная комиссия</title>
-
-    <script type="text/javascript">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="${pageContext.request.contextPath}/static/www/css/styles.css" rel="stylesheet">
+    <script language="JavaScript">
         function open(id){
-            display = document.getElementById(id).style.display;
-            if(display=="none"){
+            if(document.getElementById(id).style.display=="none"){
                 document.getElementById(id).style.display="block";
             }else{
                 document.getElementById(id).style.display="none";
             }
         }
     </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="${pageContext.request.contextPath}/static/www/css/styles.css" rel="stylesheet">
 
 
 </head>
@@ -33,8 +31,8 @@
             Выберите Группу:
             <form action="${pageContext.request.contextPath}/do/group" method="post">
                 <c:forEach var="faculty" items="${faculties}">
-                    <div onclick="open('${faculty.id}')"><c:out value="${faculty.name}"/></div>
-                    <div id="${faculty.id}">
+                    <div onclick="open(${faculty.id})"><span style="color: blue"><c:out value="${faculty.name}"/></span></div>
+                    <div id="${faculty.id}" style="display: block">
                 <c:forEach var="group" items="${faculty.groups}">
                         <input type="checkbox" name="group"  value="${group.id}"/><c:out value="${group.name}"/><br>
                 </c:forEach>

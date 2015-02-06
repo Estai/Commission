@@ -24,10 +24,11 @@ public class ConfirmPageAction implements Action {
             Group group = Helper.getInstance().getGroupService().findById(id);
             application.add(group);
         }
+            req.getSession().setAttribute("message","Вы действительно хотите подать заявку на зачисление в группу: ");
+            req.getSession().setAttribute("application",application);
+            return new ActionResult("confirm",true);
         }
 
-        req.getSession().setAttribute("message","Вы действительно хотите подать заявку на зачисление в группу: ");
-        req.getSession().setAttribute("application",application);
-        return new ActionResult("confirm",true);
+        return new ShowPageAction("comission").execute(req,resp);
     }
 }

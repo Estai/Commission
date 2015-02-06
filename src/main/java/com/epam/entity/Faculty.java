@@ -32,6 +32,7 @@ public class Faculty extends BaseEntity {
     public void add(List<Group> group) {
         groups.addAll(group);
     }
+    public void add(Group group){groups.add(group);}
 
     public void remove(List<Group> group) {
         groups.removeAll(group);

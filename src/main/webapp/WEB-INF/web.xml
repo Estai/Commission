@@ -53,4 +53,28 @@
     <error-page>
         <location>/error</location>
     </error-page>
+    <servlet>
+        <servlet-name>ServletName</servlet-name>
+        <servlet-class>com.epam.servlet.DownloadServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ServletName</servlet-name>
+        <url-pattern>/download/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Upload</servlet-name>
+        <servlet-class>com.epam.servlet.UploadServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Upload</servlet-name>
+        <url-pattern>/uploads</url-pattern>
+    </servlet-mapping>
+
+    <context-param>
+        <param-name>tempfile.dir</param-name>
+        <param-value>tmpfiles</param-value>
+    </context-param>
 </web-app>

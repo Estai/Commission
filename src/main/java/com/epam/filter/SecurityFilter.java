@@ -1,5 +1,8 @@
 package com.epam.filter;
 
+import com.epam.entity.Role;
+import com.epam.entity.User;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +23,7 @@ public class SecurityFilter implements Filter {
         String pathInfo = req.getPathInfo();
 
         if (pathInfo.endsWith("infoenrollee")) {
-            if (req.getSession().getAttribute("enrollee") != null) {
+            if (req.getSession().getAttribute("enrollee") != null ) {
                 String location = req.getContextPath() + "/do/comission";
                 resp.sendRedirect(location);
                 return;
@@ -46,6 +49,26 @@ public class SecurityFilter implements Filter {
                 resp.sendRedirect(location);
                 return;}
         }
+        if(pathInfo.startsWith("/admin")){
+            User user = (User) req.getSession().getAttribute("user");
+            if (user != null) {
+
+                if(user.getRole()!=Role.ADMIN) {
+
+                    resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+                    return;
+//                    String location = req.getContextPath() + "/do/login";
+//                    resp.sendRedirect(location);
+//                    return;
+                }}
+            else{ resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return;}
+        }
+//        if(pathInfo.endsWith("/send")){
+//            String location = req.getContextPath() + "/do/comission";
+//            resp.sendRedirect(location);
+//            return;
+//        }
         chain.doFilter(req, resp);
     }
 

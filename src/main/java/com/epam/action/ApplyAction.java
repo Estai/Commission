@@ -1,6 +1,6 @@
 package com.epam.action;
 
-import com.epam.Helper;
+import com.epam.manager.Helper;
 import com.epam.entity.*;
 import com.epam.service.ApplicationService;
 
@@ -34,6 +34,7 @@ public class ApplyAction implements Action {
                     }
                 }
             }
+            if(group.getIsExam()){req.setAttribute("DataError"," На специальность '"+group.getName()+"' надо сдать творческий экзамен");}
         }
 
         PriorityStatement priorityStatement;
@@ -44,7 +45,6 @@ public class ApplyAction implements Action {
                 case 1: priorityStatement=PriorityStatement.SECOND; break;
                 case 2: priorityStatement=PriorityStatement.THIRD; break;
                 case 3: priorityStatement=PriorityStatement.FOURTH; break;
-                case 4: priorityStatement=PriorityStatement.FIFTH; break;
                 default:{ req.setAttribute("DataError","Превышает лимит");return againPage; }
             }
             Application application = new Application();

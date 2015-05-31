@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
   <title>Приемная комиссия</title>
@@ -8,9 +9,15 @@
 <body>
 <div class="wrapper container">
   <%@ include file="header.jspf" %>
+  <fmt:setBundle basename="app" var="rb"/>
   <div class="heading"></div>
   <div class="row">
-    <aside class="col-md-7"></aside>
+    <aside class="col-md-7">
+      <p style="color:#011b6a;">© Мурых Е.Л.,Боранов Е.Т.,Паршина.,Әбеуов Е.Б.</p>
+      <p style="color:#011b6a;">Творческие экзамены</p>
+      <p style="color:#011b6a;">Специальность "Дизайн": <fmt:message key="examDesign" bundle="${rb}"/> </p>
+      <p style="color:#011b6a;">Специальность "Начальная военная подготовка": <fmt:message key="examNVP" bundle="${rb}"/> </p>
+    </aside>
     <section class="col-md-17 mainer">
       <h3>Профиль</h3>
       <c:out value="${success}"/>
@@ -50,7 +57,7 @@
           <th>Приоритет</th>
         </tr>
         <c:forEach var="statement" items="${applications}">
-          <tr><td>
+          <tr><td class="checkbox">
             <input type="checkbox" name="${statement.id}" value="${statement.id}">
           </td>
             <td> <c:out value="${statement.groupName}"/></td><td>
@@ -97,12 +104,23 @@
           <input name="number" type="text" size="30" maxlength="15" value="${enrollee.certificateNumber}">
         </div>
         <div class="rows">
-          <label>Средний бал аттестата:
+          <label>Email:
             <span class="required">*</span>
           </label>
-          <input name="certificate" type="text" size="30" maxlength="15" value="${enrollee.certificate}">
+          <input name="email" type="text" size="30" maxlength="15" value="${enrollee.email}">
         </div>
-
+        <div class="rows">
+          <label>Адрес проживания :
+            <span class="required">*</span>
+          </label>
+          <textarea  name="address"  style="width: 150; height: 150;">${enrollee.address}</textarea>
+        </div>
+        <div class="rows">
+          <label>Контактный телефон::
+            <span class="required">*</span>
+          </label>
+          <input name="mobileNumber" type="text" size="30" maxlength="15" value="${enrollee.mobileNumber}">
+        </div>
         <c:forEach var="subjectsMap" items="${subjectsMap}">
          <c:if test="${subjectsMap.key.main}">
           <div class="rows">

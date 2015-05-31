@@ -1,4 +1,4 @@
-package com.epam;
+package com.epam.manager;
 
 import com.epam.entity.PriorityStatement;
 
@@ -11,7 +11,6 @@ public class ApplicationManager {
             case 1: priorityStatement=PriorityStatement.SECOND; break;
             case 2: priorityStatement=PriorityStatement.THIRD; break;
             case 3: priorityStatement=PriorityStatement.FOURTH; break;
-            case 4: priorityStatement=PriorityStatement.FIFTH; break;
         }
         return priorityStatement;
     }

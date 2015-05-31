@@ -1,16 +1,13 @@
 package com.epam.action;
 
-import com.epam.Helper;
+import com.epam.manager.Helper;
 import com.epam.entity.Faculty;
 import com.epam.entity.Group;
 import com.epam.entity.Subject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class AddFaculty implements Action {
     Action addPage=new ShowPageAction("admin/addPage");
@@ -21,6 +18,7 @@ public class AddFaculty implements Action {
         String[] subjs = req.getParameterValues("subj");
         String[] groups = req.getParameterValues("group");
         String[] numbers = req.getParameterValues("number");
+        String[] exams = req.getParameterValues("exam");
         if(Validator.isNullParameters(name) || Validator.isNullParameters(decan)){
             req.setAttribute("Parameter","Проверьте введенные данные");
             return addPage.execute(req,resp);
@@ -42,6 +40,13 @@ public class AddFaculty implements Action {
                 return addPage.execute(req,resp);}
             Group newGroup=new Group();
             Subject subject=new Subject();
+            if(exams[i].equals("true")){
+                newGroup.setIsExam(true);
+            }
+            else
+            {
+                newGroup.setIsExam(false);
+            }
             subject.setId(Integer.parseInt(subjs[i]));
             newGroup.setName(groups[i]);
             newGroup.setProfileSubject(subject);

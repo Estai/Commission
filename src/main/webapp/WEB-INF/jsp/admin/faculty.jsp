@@ -15,7 +15,7 @@
 
 
     </c:forEach>
-    <input type="submit" value="Удалить">
+    <input class="btn btn-blue" type="submit" value="Удалить">
   </form>
 
   </c:if>

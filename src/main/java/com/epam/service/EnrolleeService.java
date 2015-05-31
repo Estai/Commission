@@ -1,6 +1,7 @@
 package com.epam.service;
 
 import com.epam.dao.*;
+import com.epam.entity.Application;
 import com.epam.entity.Enrollee;
 import com.epam.entity.Score;
 import com.epam.entity.Subject;
@@ -37,7 +38,8 @@ return enrollee;
 
 
         });
-        enrollee.setScore(getScore(enrollee.getId()));
+        if(enrollee!=null){
+        enrollee.setScore(getScore(enrollee.getId()));}
    return enrollee;
     }
     public Map<Subject,Score> getScore(final Integer id_enrollee){
@@ -94,5 +96,18 @@ return enrollee;
             }
         });
         return enrollee;
+    }
+
+    public List<Enrollee> findAll() {
+        List<Enrollee> enrollees = (List<Enrollee>) DaoFactory.getDaoFactory("jdbc").createDaoManager().transactionAndClose(new DaoCommand() {
+            @Override
+            public Object execute(DaoManager daoManager) {
+
+                return daoManager.getEnrolleeDao().findAll();
+            }
+
+
+        });
+        return enrollees;
     }
 }

@@ -1,5 +1,8 @@
 package com.epam.action;
 
+import com.epam.entity.Score;
+import com.epam.entity.Subject;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -50,7 +53,8 @@ public class Validator {
 
     public  static boolean isNullParameters(String lastname, String firstname, String middlename, String certificate, String numberCertificate) {
         if (lastname == null || firstname == null ||
-                middlename == null || certificate == null || numberCertificate == null) {
+                middlename == null || certificate == null || numberCertificate == null || lastname.isEmpty() || firstname.isEmpty() ||
+                middlename.isEmpty() || certificate.isEmpty() || numberCertificate.isEmpty() ) {
             return true;
         }
         return false;
@@ -63,4 +67,16 @@ public class Validator {
     }
 
 
+    public static boolean isChange(Score newScore, Map<Subject, Score> scoreMap) {
+        Iterator<Subject> iterator = scoreMap.keySet().iterator();
+        while(iterator.hasNext()) {
+            Subject subject = iterator.next();
+            if(!subject.isMain()) {
+                Score score = scoreMap.get(subject);
+                if(!score.equals(newScore)) return true;
+            }
+        }
+
+        return false;
+    }
 }

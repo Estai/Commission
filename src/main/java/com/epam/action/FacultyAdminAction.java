@@ -1,6 +1,6 @@
 package com.epam.action;
 
-import com.epam.Helper;
+import com.epam.manager.Helper;
 import com.epam.entity.Faculty;
 
 import javax.servlet.http.HttpServletRequest;

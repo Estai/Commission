@@ -1,17 +1,31 @@
 package com.epam.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class Enrollee extends User {
     private String firstName;
     private Integer idUser;
+    private Long IIN;
     private String lastName;
     private String middleName;
     private Map<Subject, Score> score;
-    private Double certificate;
     private String certificateNumber;
+    private String nationality;
+    private String mobileNumber;
+    private String address;
+    private String email;
+    private String educationalInstitution;
+    private Boolean goldMedal;
+    private Boolean excellentPupil;
+    private Date birthday;
+    private Language language;
+    private Gender gender;
+    private String formStudy;
+
+
 
 
     public Enrollee(){
@@ -41,12 +55,102 @@ public class Enrollee extends User {
         this.score = score;
     }
 
-    public Double getCertificate() {
-        return certificate;
+    public Long getIIN() {
+        return IIN;
     }
 
-    public void setCertificate(Double certificate) {
-        this.certificate = certificate;
+    public void setIIN(Long IIN) {
+        this.IIN = IIN;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEducationalInstitution() {
+        return educationalInstitution;
+    }
+
+    public void setEducationalInstitution(String educationalInstitution) {
+        this.educationalInstitution = educationalInstitution;
+    }
+
+    public Boolean getGoldMedal() {
+        return goldMedal;
+    }
+
+    public void setGoldMedal(Boolean goldMedal) {
+        this.goldMedal = goldMedal;
+    }
+
+    public Boolean getExcellentPupil() {
+        return excellentPupil;
+    }
+
+    public void setExcellentPupil(Boolean excellentPupil) {
+        this.excellentPupil = excellentPupil;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+
+        this.birthday = birthday;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+
+    public String getFormStudy() {
+        return formStudy;
+    }
+
+    public void setFormStudy(String formStudy) {
+        this.formStudy = formStudy;
     }
 
     public String getMiddleName() {

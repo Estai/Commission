@@ -6,7 +6,7 @@
                      height="80" align="left" class="img-rounded"></a>
 
     <div class="row1">
-        <div style="float:right; width: -moz-calc(100% - 100px);width: -webkit-calc(100% - 100px);width: calc(100% - 100px);">
+        <div style="text-align: right;float:right; ">
             <c:set var="menu" value="registration" scope="page"/>
             <c:if test="${not empty user}">
                 <c:set var="menu" value="profile" scope="page"/>
@@ -21,51 +21,38 @@
             </a></div>
 
         </div>
-        <div style="float:right; width: -moz-calc(100% - 100px);width: -webkit-calc(100% - 100px);width: calc(100% - 100px);">
+        <div style="float:right;">
             <c:if test="${not empty user}">
                 <c:set var="exit"
-                       value="<div class='verav' style='margin-left:15px; float:right; width: -moz-calc(100% - 100px);width: -webkit-calc(100% - 100px);width: calc(100% - 100px);'><a href='${pageContext.request.contextPath}/do/logout'>Выход</a></div>"/>
+                       value="<div class='verav' style='margin-left:15px; float:right; '><a href='${pageContext.request.contextPath}/do/logout'>Выход</a></div>"/>
                 ${exit}
             </c:if>
         </div>
-        <div style="float:right; width: -moz-calc(100% - 100px);width: -webkit-calc(100% - 100px);width: calc(100% - 100px);">
-            <c:if test="${user.role eq Role.ADMIN && not empty user }">
+        <div style="float:right; ">
+            <c:if test="${user.role=='ADMIN' && not empty user }">
                 <c:set var="admin"
-                       value="<div class='verav' style='margin-left:15px; float:right; width: -moz-calc(100% - 100px);width: -webkit-calc(100% - 100px);width: calc(100% - 100px);'><a href='${pageContext.request.contextPath}/do/admin'>АдминПанель</a></div>"/>
+                       value="<div class='verav' style='margin-left:15px; float:right; '><a href='${pageContext.request.contextPath}/do/admin'>АдминПанель</a></div>"/>
                 ${admin}
             </c:if>
         </div>
 
     </div>
 </header>
+<%--<div style="position: relative;width: 966px;height: 90px;margin: 0 auto;">--%>
+<%--<p style="font-size: 88dpi">--%>
+    <%--Приемная комиссия работает до 31 июля--%>
+<%--</p>--%>
+<%--</div>--%>
 <nav class="navbar navbar-default">
     <ul class="nav navbar-nav">
         <li><a href="${pageContext.request.contextPath}/index.jsp">Главная</a></li>
-        <li><a href="news.jsp">Новости</a></li>
+        <li><a href="${pageContext.request.contextPath}/do/news">Новости</a></li>
         <li class="menu__item">
             <a href="${pageContext.request.contextPath}/do/infoenrollee" class="menu__item__link">Приемная комиссия</a>
 
         </li>
         <li class="menu__item">
-            <a href="#" class="menu__item__link">УНиверситет</a>
-
-            <div class="menu__item__sublist navbar-default " style="z-index:1;">
-                <ul>
-                    <li class="menu__item__sublist_item">
-                        <a href="#" class="menu__item__sublist_link">ФТ</a>
-                    </li>
-                    <li class="menu__item__sublist_item">
-                        <a href="#" class="menu__item__sublist_link">МЛ</a>
-                    </li>
-                    <li class="menu__item__sublist_item">
-                        <a href="#" class="menu__item__sublist_link">ИИ</a>
-                    </li>
-
-                </ul>
-            </div>
+            <a href="${pageContext.request.contextPath}/do/university" class="menu__item__link">Университет</a>
         </li>
-        <li><a href="video.jsp">Видео</a></li>
-        <li><a href="history.jsp">История</a></li>
-        <li><a href="our.jsp">О нас</a></li>
     </ul>
 </nav>

@@ -43,7 +43,7 @@ public class JdbcScoreDao implements ScoreDao {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM SUBJECT WHERE id=?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM SCORE WHERE id=?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

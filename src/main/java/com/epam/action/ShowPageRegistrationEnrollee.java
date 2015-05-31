@@ -16,7 +16,11 @@ public class ShowPageRegistrationEnrollee implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         User user = (User) req.getSession().getAttribute("user");
+
+
         if (user != null) {
+
+
             return new ActionResult("infoenrolle");
         }
 

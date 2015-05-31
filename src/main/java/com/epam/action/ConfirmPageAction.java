@@ -1,10 +1,6 @@
 package com.epam.action;
 
-import com.epam.Helper;
-import com.epam.dao.DaoCommand;
-import com.epam.dao.DaoFactory;
-import com.epam.dao.DaoManager;
-import com.epam.entity.Faculty;
+import com.epam.manager.Helper;
 import com.epam.entity.Group;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +25,6 @@ public class ConfirmPageAction implements Action {
             return new ActionResult("confirm",true);
         }
 
-        return new ShowPageAction("comission").execute(req,resp);
+        return new ActionResult("comission");
     }
 }

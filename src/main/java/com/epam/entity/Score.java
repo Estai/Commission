@@ -13,4 +13,11 @@ public class Score extends BaseEntity {
     public void setScore(String score) {
         this.score = score;
     }
+
+    @Override
+    public String toString() {
+        return "Score{" +
+                "score='" + score + '\'' +
+                '}';
+    }
 }

@@ -12,6 +12,8 @@
       "</label> <input name='group' type='text' size='30' maxlength='50' > </div>" +
       "<div class='rows'> <label>Количество студентов: <span class='required'>*</span> </label> " +
       "<input name='number' type='text' size='30' maxlength='50'></div> " +
+      "<div class='rows'> <label>Творческий экзамен: <span class='required'>*</span> </label> " +
+      "<select name='exam' size='1'> <option selected value='true'>Да</option> <option value='false'>Нет</option> </select></div> " +
       "<div class='rows' style='float: left'> <label> Профильный предмет: <span class='required'>*</span></label>" +
       "</div> </div>"
       document.getElementById('id').appendChild(node);

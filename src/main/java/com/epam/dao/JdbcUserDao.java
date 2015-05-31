@@ -143,6 +143,7 @@ public class JdbcUserDao implements UserDao {
                 user.setId(resultSet.getInt(1));
                 user.setLogin(resultSet.getString(2));
                 user.setPassword(resultSet.getString(3));
+                user.setRole(Role.valueOf(resultSet.getString(4).toUpperCase()));
             }
         } catch (Exception e) {
             throw new DaoException(e);

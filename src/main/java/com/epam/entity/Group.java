@@ -5,6 +5,7 @@ public class Group extends BaseEntity {
     private Integer numberStudent;
     private Subject profileSubject;
     private Integer idFaculty;
+    private Boolean isExam;
 
     public Group() {
     }
@@ -39,5 +40,15 @@ public class Group extends BaseEntity {
 
     public void setProfileSubject(Subject profileSubject) {
         this.profileSubject = profileSubject;
+    }
+
+    public Boolean getIsExam() {
+        return isExam;
+    }
+
+
+
+    public void setIsExam(Boolean isExam) {
+        this.isExam = isExam;
     }
 }

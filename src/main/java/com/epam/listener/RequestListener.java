@@ -1,6 +1,6 @@
 package com.epam.listener;
 
-import com.epam.LocaleManager;
+import com.epam.manager.LocaleManager;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestEvent;
